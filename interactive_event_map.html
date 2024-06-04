@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interactive Event Map</title>
+  <!-- Підключення Leaflet.js -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <style>
+    #map { /* Стилі для контейнера мапи */
+      height: 600px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Interactive Event Map</h1>
+  
+  <!-- Контейнер для мапи -->
+  <div id="map"></div>
+
+  <!-- Форма для додавання міток -->
+  <form id="addMarkerForm">
+    <label for="eventName">Event Name:</label>
+    <input type="text" id="eventName" name="eventName" required><br>
+    <label for="eventYear">Event Year:</label>
+    <input type="number" id="eventYear" name="eventYear" required><br>
+    <label for="eventSource">Event Source:</label>
+    <input type="text" id="eventSource" name="eventSource" required><br>
+    <button type="submit">Add Marker</button>
+  </form>
+
+  <!-- Підключення Leaflet.js -->
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script>
+    // Ініціалізація мапи
+    var map = L.map('map').setView([51.505, -0.09], 13);
+
+    // Додавання тайлованого шару (основи мапи)
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+
+    // Функція для додавання маркера
+    function addMarker(latitude, longitude, title, year, source) {
+      var marker = L.marker([latitude, longitude]).addTo(map);
+      marker.bindPopup("<b>" + title + "</b><br>" + "Year: " + year + "<br>" + "Source: " + source).openPopup();
+    }
+
+    // Додавання маркерів за допомогою функції addMarker
+    addMarker(51.5, -0.09, "Event 1", 2024, "Source 1");
+    addMarker(51.51, -0.1, "Event 2", 2024, "Source 2");
+
+    // Обробник події для форми додавання міток
+    document.getElementById("addMarkerForm").addEventListener("submit", function(event) {
+      event.preventDefault(); // Зупиняємо стандартну поведінку форми
+      var eventName = document.getElementById("eventName").value;
+      var eventYear = document.getElementById("eventYear").value;
+      var eventSource = document.getElementById("eventSource").value;
+      // Додаємо новий маркер на карту з введеними даними
+      addMarker(51.52, -0.1, eventName, eventYear, eventSource); // Змініть координати за необхідності
+      // Очистити поля форми
+      document.getElementById("eventName").value = "";
+      document.getElementById("eventYear").value = "";
+      document.getElementById("eventSource").value = "";
+    });
+  </script>
+</body>
+</html>
