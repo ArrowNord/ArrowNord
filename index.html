@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interactive Event Map</title>
+  <!-- Підключення Leaflet.js -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <style>
+    #map { /* Стилі для контейнера мапи */
+      height: 600px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Interactive Event Map</h1>
+  
+  <!-- Контейнер для мапи -->
+  <div id="map"></div>
+
+  <!-- Підключення Leaflet.js -->
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script>
+    // Ініціалізація мапи
+    var map = L.map('map').setView([51.505, -0.09], 13);
+
+    // Додавання тайлованого шару (основи мапи)
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+
+    // Функція для додавання маркера
+    function addMarker(latitude, longitude, title, year, month, source) {
+      var marker = L.marker([latitude, longitude]).addTo(map);
+      marker.bindPopup("<b>" + title + "</b><br>" + "Year: " + year + "<br>" + "Month: " + month + "<br>" + "Source: " + source).openPopup();
+    }
+
+    // Додавання маркерів за допомогою функції addMarker
+    addMarker(51.5, -0.09, "Event 1", 2024, "June", "Source 1");
+    addMarker(51.51, -0.1, "Event 2", 2024, "July", "Source 2");
+    // Тут можна додати більше маркерів, використовуючи функцію addMarker
+
+    // Функція для пошуку подій за назвою
+    function searchByTitle(title) {
+      // Код для пошуку події за назвою
+    }
+
+    // Функція для пошуку подій за роком
+    function searchByYear(year) {
+      // Код для пошуку подій за роком
+    }
+  </script>
+</body>
+</html>
