@@ -66,7 +66,7 @@
         var popupContent = layer.getPopup().getContent();
         var markerYear = popupContent.split("Year: ")[1].split("<")[0];
         // Порівнюємо рік маркера з вказаним роком
-        if (markerYear == year) {
+        if (markerYear === year.toString()) {
           // Знаходимо маркери з вказаним роком та робимо їх видимими
           layer.setStyle({opacity: 1, fillOpacity: 1});
         } else {
