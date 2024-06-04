@@ -42,12 +42,38 @@
 
     // Функція для пошуку подій за назвою
     function searchByTitle(title) {
-      // Код для пошуку події за назвою
+      // Отримуємо всі маркери на мапі
+      var markers = map.getLayers();
+      // Шукаємо маркери з вказаною назвою
+      markers.eachLayer(function(layer) {
+        if (layer.getPopup().getContent().includes(title)) {
+          // Знаходимо маркери з вказаною назвою та робимо їх видимими
+          layer.setStyle({opacity: 1, fillOpacity: 1});
+        } else {
+          // Приховуємо інші маркери
+          layer.setStyle({opacity: 0, fillOpacity: 0});
+        }
+      });
     }
 
     // Функція для пошуку подій за роком
     function searchByYear(year) {
-      // Код для пошуку подій за роком
+      // Отримуємо всі маркери на мапі
+      var markers = map.getLayers();
+      // Шукаємо маркери з вказаним роком
+      markers.eachLayer(function(layer) {
+        // Отримуємо рік з підказки маркера
+        var popupContent = layer.getPopup().getContent();
+        var markerYear = popupContent.split("Year: ")[1].split("<")[0];
+        // Порівнюємо рік маркера з вказаним роком
+        if (markerYear == year) {
+          // Знаходимо маркери з вказаним роком та робимо їх видимими
+          layer.setStyle({opacity: 1, fillOpacity: 1});
+        } else {
+          // Приховуємо інші маркери
+          layer.setStyle({opacity: 0, fillOpacity: 0});
+        }
+      });
     }
   </script>
 </body>
