@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interactive Event Map</title>
+  <!-- Підключення Leaflet.js -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <style>
+    #map { /* Стилі для контейнера мапи */
+      height: 600px;
+    }
+    #banner { /* Стилі для банера */
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background-color: rgba(255, 255, 255, 0.8);
+      padding: 10px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <h1>Interactive Event Map</h1>
+  
+  <!-- Контейнер для мапи -->
+  <div id="map"></div>
+
+  <!-- Банер з кнопками -->
+  <div id="banner">
+    <button onclick="addMarkerPrompt()">Додати мітку</button>
+    <input type="text" id="searchInput" placeholder="Пошук за назвою">
+    <button onclick="searchByTitle()">Пошук</button>
+  </div>
+
+  <!-- Підключення Leaflet.js -->
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script>
+    var map = L.map('map').setView([51.505, -0.09], 13);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+
+    function addMarker(latitude, longitude, title, year, month, source) {
+      var marker = L.marker([latitude, longitude]).addTo(map);
+      marker.bindPopup("<b>" + title + "</b><br>" + "Year: " + year + "<br>" + "Month: " + month + "<br>" + "Source: " + source).openPopup();
+    }
+
+    // Функція для додавання маркера за допомогою введення користувача
+    function addMarkerPrompt() {
+      var title = prompt("Введіть назву події:");
+      var latitude = prompt("Введіть широту:");
+      var longitude = prompt("Введіть довготу:");
+      var year = prompt("Введіть рік:");
+      var month = prompt("Введіть місяць:");
+      var source = prompt("Введіть джерело інформації:");
+      addMarker(latitude, longitude, title, year, month, source);
+    }
+
+    function searchByTitle() {
+      // Код для пошуку подій за назвою
+    }
+  </script>
+</body>
+</html>
